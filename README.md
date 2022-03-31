@@ -5,7 +5,6 @@
 ## 数据来源
 
 - CCKS 2019
-- cEHRNER
 - CHIP-CDEE
 - CHIP-MDCFNPC
 - CMeEE
