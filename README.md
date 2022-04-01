@@ -21,6 +21,7 @@ python3 convert_cmeee.py
 python3 convert_cmeie.py
 python3 convert_ccks.py
 python3 convert_meddg.py
+python3 pack.py
 ```
 
 
@@ -59,11 +60,11 @@ python3 baseline_train.py
 ## 数据统计
 
 | 数据集 | train | dev  | baseline |
-| ------ | ----- | ---- | -------- |
+| :----: | :---: | :--: | :------: |
 | CCKS   | 1103  | 275  |          |
 | CMeEE  | 17588 | 1954 |          |
 | CMeIE  | 13899 | 1544 |          |
 | IMCS   | 35889 | 3771 |          |
 | MedDG  | 52361 | 5817 |          |
-| 合集   |       |      |          |
+| 合集   | 120840 | 13361 |          |
 
