@@ -62,7 +62,7 @@ python3 baseline_train.py
 | 数据集 | train | dev  | baseline |
 | :----: | :---: | :--: | :------: |
 | CCKS   | 1310  | 327  | 84.638 |
-| CMeEE  | 17588 | 1954 | 67.840 |
+| CMeEE  | 17588 | 1954 |  |
 | CMeIE  | 13899 | 1544 |          |
 | IMCS   | 35889 | 3771 |          |
 | MedDG  | 52361 | 5817 |          |
