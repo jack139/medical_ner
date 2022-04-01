@@ -15,11 +15,11 @@ from bert4keras.snippets import open, to_array
 from keras.models import Model
 from tqdm import tqdm
 
-DATASET = 'ccks' # ccks, cmeee, cmeie, imcs, meddg, pack
+DATASET = 'pack' # ccks, cmeee, cmeie, imcs, meddg, pack
 
 maxlen = 512
 epochs = 20
-batch_size = 32
+batch_size = 16
 learning_rate = 2e-5
 categories = set()
 
