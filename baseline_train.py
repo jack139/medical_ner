@@ -19,7 +19,7 @@ DATASET = 'ccks' # ccks, cmeee, cmeie, imcs, meddg, pack
 
 maxlen = 512
 epochs = 20
-batch_size = 4
+batch_size = 32
 learning_rate = 2e-5
 categories = set()
 
