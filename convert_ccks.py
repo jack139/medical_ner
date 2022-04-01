@@ -4,6 +4,15 @@ new_ratio = 0.1
 
 categories = set()
 
+cate_map = {
+    "实验室检验" : "检验和检查",
+    "影像检查"   : "检验和检查",
+    "疾病和诊断" : "疾病和诊断",
+    "手术"      : "治疗和手术",
+    "解剖部位"   : "解剖部位",
+    "药物"      : "药物",
+}
+
 def get_data(infile, include_blank=True):
     D = []
 
@@ -13,15 +22,14 @@ def get_data(infile, include_blank=True):
 
             entities = []
             for e in l['entities']:
-                
+                categories.add(e['label_type'])
+
                 entities.append({
                     "start_idx": e['start_pos'],
                     "end_idx": e['end_pos']-1,
-                    "type": e['label_type'],
+                    "type": cate_map[e['label_type']],
                     "entity": l['originalText'][e['start_pos']:e['end_pos']]
                 })
-
-                categories.add(e['label_type'])
 
             if include_blank or len(entities)>0:
                 D.append({
@@ -53,14 +61,14 @@ if __name__ == '__main__':
 
     json.dump(
         D_train + D_dev[:-new_dev_num],
-        open('data/ccks_train.json', 'w', encoding='utf-8'),
+        open('dataset/ccks_train.json', 'w', encoding='utf-8'),
         indent=4,
         ensure_ascii=False
     )
 
     json.dump(
         D_dev[-new_dev_num:],
-        open('data/ccks_dev.json', 'w', encoding='utf-8'),
+        open('dataset/ccks_dev.json', 'w', encoding='utf-8'),
         indent=4,
         ensure_ascii=False
     )

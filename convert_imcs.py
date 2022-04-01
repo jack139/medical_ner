@@ -1,27 +1,15 @@
 import os
 import json
 
-'''
-  {
-    "text": "对儿童SARST细胞亚群的研究表明，与成人SARS相比，儿童细胞下降不明显，证明上述推测成立。",
-    "entities": [
-      {
-        "start_idx": 3,
-        "end_idx": 9,
-        "type": "bod",
-        "entity": "SARST细胞"
-      },
-      {
-        "start_idx": 19,
-        "end_idx": 24,
-        "type": "dis",
-        "entity": "成人SARS"
-      }
-    ]
-  },
-
-'''
 categories = set()
+
+cate_map = {
+    "Medical_Examination" : "检验和检查",
+    "Symptom"             : "症状和体征",
+    "Operation"           : "治疗和手术",
+    "Drug"                : "药物",
+    "Drug_Category"       : "药物",
+}
 
 def convert(infile, outfile, include_blank=True):
 
@@ -61,6 +49,8 @@ def convert(infile, outfile, include_blank=True):
                     etype = label.split('-')[1]
 
                     categories.add(etype)
+
+                    etype = cate_map[etype]
 
                 elif label[0]=='I':
                     pass
@@ -103,8 +93,8 @@ def convert(infile, outfile, include_blank=True):
 
 
 if __name__ == '__main__':
-    convert('data/IMCS-NER/new_split/IMCS_train.json', 'data/imcs_train.json', False)
-    convert('data/IMCS-NER/new_split/IMCS_dev.json', 'data/imcs_dev.json', False)
+    convert('data/IMCS-NER/new_split/IMCS_train.json', 'dataset/imcs_train.json', False)
+    convert('data/IMCS-NER/new_split/IMCS_dev.json', 'dataset/imcs_dev.json', False)
 
     json.dump(
         list(categories),

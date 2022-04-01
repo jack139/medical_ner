@@ -1,27 +1,6 @@
 import os
 import json
 
-'''
-  {
-    "text": "对儿童SARST细胞亚群的研究表明，与成人SARS相比，儿童细胞下降不明显，证明上述推测成立。",
-    "entities": [
-      {
-        "start_idx": 3,
-        "end_idx": 9,
-        "type": "bod",
-        "entity": "SARST细胞"
-      },
-      {
-        "start_idx": 19,
-        "end_idx": 24,
-        "type": "dis",
-        "entity": "成人SARS"
-      }
-    ]
-  },
-
-
-'''
 
 text_map = {
     '雷呗' : ['雷贝'],
@@ -56,6 +35,12 @@ categories = [
 ]
 
 new_ratio = 0.1
+
+cate_map = {
+    "Test"     : "检验和检查",
+    "Disease"  : "疾病和诊断",
+    "Medicine" : "药物",
+}
 
 def search(pattern, sequence):
     """从sequence中寻找子串pattern
@@ -105,7 +90,7 @@ def get_data(infile, include_blank=True):
                     entities.append({
                         "start_idx": s_idx,
                         "end_idx": s_idx + len(e) - 1,
-                        "type": c,
+                        "type": cate_map[c],
                         "entity": e,
                     })
 
@@ -135,14 +120,14 @@ if __name__ == '__main__':
 
     json.dump(
         D_train[:-new_dev_num],
-        open('data/meddg_train.json', 'w', encoding='utf-8'),
+        open('dataset/meddg_train.json', 'w', encoding='utf-8'),
         indent=4,
         ensure_ascii=False
     )
 
     json.dump(
         D_train[-new_dev_num:],
-        open('data/meddg_dev.json', 'w', encoding='utf-8'),
+        open('dataset/meddg_dev.json', 'w', encoding='utf-8'),
         indent=4,
         ensure_ascii=False
     )

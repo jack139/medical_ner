@@ -1,29 +1,21 @@
 import os
 import json
 
-'''
-  {
-    "text": "对儿童SARST细胞亚群的研究表明，与成人SARS相比，儿童细胞下降不明显，证明上述推测成立。",
-    "entities": [
-      {
-        "start_idx": 3,
-        "end_idx": 9,
-        "type": "bod",
-        "entity": "SARST细胞"
-      },
-      {
-        "start_idx": 19,
-        "end_idx": 24,
-        "type": "dis",
-        "entity": "成人SARS"
-      }
-    ]
-  },
 
-'''
 categories = set()
 
 new_ratio = 0.1
+
+
+cate_map = {
+    "检查" : "检验和检查",
+    "疾病" : "疾病和诊断",
+    "症状" : "症状和体征",
+    "手术治疗" : "治疗和手术",
+    "其他治疗" : "治疗和手术",
+    "部位" : "解剖部位",
+    "药物" : "药物",
+}
 
 def search(pattern, sequence):
     """从sequence中寻找子串pattern
@@ -53,11 +45,19 @@ def get_data(infile, include_blank=True):
                 o = e['object']['@value']
                 o_type = e['object_type']['@value']
 
-                s_idx = search(s, text)
-                o_idx = search(o, text)
-
                 categories.add(s_type)
                 categories.add(o_type)
+
+                if s_type in ["流行病学", "社会学", "预后", "其他"]:
+                    continue
+                if o_type in ["流行病学", "社会学", "预后", "其他"]:
+                    continue
+
+                s_type = cate_map[s_type]
+                o_type = cate_map[o_type]
+
+                s_idx = search(s, text)
+                o_idx = search(o, text)
 
                 if s_idx == -1 or o_idx == -1:
                     print('fail: ', s_idx, o_idx, text, e) # 未找到
@@ -105,14 +105,14 @@ if __name__ == '__main__':
 
     json.dump(
         D_train + D_dev[:-new_dev_num],
-        open('data/cmeie_train.json', 'w', encoding='utf-8'),
+        open('dataset/cmeie_train.json', 'w', encoding='utf-8'),
         indent=4,
         ensure_ascii=False
     )
 
     json.dump(
         D_dev[-new_dev_num:],
-        open('data/cmeie_dev.json', 'w', encoding='utf-8'),
+        open('dataset/cmeie_dev.json', 'w', encoding='utf-8'),
         indent=4,
         ensure_ascii=False
     )
