@@ -1,6 +1,6 @@
 import json
 
-new_ratio = 0.1
+new_ratio = 0.2
 
 categories = set()
 
