@@ -5,8 +5,6 @@
 ## 数据来源
 
 - CCKS 2019
-- CHIP-CDEE
-- CHIP-MDCFNPC
 - CMeEE
 - CMeIE
 - IMCS
