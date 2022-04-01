@@ -32,10 +32,55 @@ def get_data(infile, include_blank=True):
                 })
 
             if include_blank or len(entities)>0:
-                D.append({
-                    'text' : l['originalText'],
-                    'entities' : entities
-                })
+                if len(l['originalText'])>512:
+                    # 对超长文本的处理：分成两个文本
+                    for n in range(512, 0, -1):
+                        if l['originalText'][n] in ['；', '，', '。', ',', '）', '、', ';']:
+                            break
+
+                    if n==0: # 连续512个字符 无分隔符，一般不可能发生
+                        D.append({
+                            'text' : l['originalText'],
+                            'entities' : entities,
+                            'too_long' : 1
+                        })
+                    else:
+                        # 分成两个 文本
+                        text1 = l['originalText'][:n]
+                        text2 = l['originalText'][n:]
+                        entities1 = []
+                        entities2 = []
+
+                        for ee in entities:
+                            if ee['start_idx']<n:
+                                entities1.append({
+                                    "start_idx": ee['start_idx'],
+                                    "end_idx": ee['end_idx'],
+                                    "type": ee['type'],
+                                    "entity": ee['entity']
+                                })
+                            else:
+                                entities2.append({
+                                    "start_idx": ee['start_idx']-n,
+                                    "end_idx": ee['end_idx']-n,
+                                    "type": ee['type'],
+                                    "entity": ee['entity']
+                                })
+
+                        D.append({
+                            'text' : text1,
+                            'entities' : entities1,
+                        })
+                        D.append({
+                            'text' : text2,
+                            'entities' : entities2,
+                        })
+
+                else:
+                    D.append({
+                        'text' : l['originalText'],
+                        'entities' : entities
+                    })
 
     #print(len(D))
 
