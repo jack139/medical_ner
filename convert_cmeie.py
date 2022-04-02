@@ -79,9 +79,20 @@ def get_data(infile, include_blank=True):
 
             # 加入数据集
             if include_blank or len(entities)>0:
+                entities_ = []
+                for e in entities: # 去除一样的实体
+                    equal = False
+                    for e2 in entities_:
+                        if e['start_idx']==e2['start_idx'] and e['end_idx']==e2['end_idx'] and e['type']==e2['type']:
+                            equal = True
+                            break
+
+                    if not equal:
+                        entities_.append(e)
+
                 D.append({
                     'text' : text,
-                    'entities' : entities,
+                    'entities' : entities_,
                 })
 
 
