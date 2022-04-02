@@ -217,4 +217,4 @@ if __name__ == '__main__':
 
 else:
     model.load_weights(f'{DATASET}_best_f1_0.59188.weights')
-    predict_to_file('data/pack_dev.json', 'pack_dev_pred.json')
+    predict_to_file(f'data/{DATASET}_dev.json', f'{DATASET}_dev_pred.json')
