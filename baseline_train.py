@@ -170,6 +170,37 @@ class Evaluator(keras.callbacks.Callback):
             (f1, precision, recall, self.best_val_f1)
         )
 
+
+def predict_to_file(in_file, out_file):
+    """预测到文件"""
+    data = json.load(open(in_file))
+    for d in tqdm(data, ncols=100):
+        d['entities_pred'] = []
+        entities = NER.recognize(d['text'])
+        for e in entities:
+            bingo = False
+            for ee in d['entities']:
+                if ee['start_idx']==e[0] and ee['end_idx']==e[1] and ee['type']==e[2]:
+                    ee['predict'] = 'bingo' # 命中预测
+                    bingo = True
+                    break
+
+            if not bingo:
+                d['entities_pred'].append({
+                    'start_idx': e[0],
+                    'end_idx': e[1],
+                    'type': e[2],
+                    'entity': d['text'][e[0]:e[1]+1]
+                })
+
+    json.dump(
+        data,
+        open(out_file, 'w', encoding='utf-8'),
+        indent=4,
+        ensure_ascii=False
+    )
+
+
 if __name__ == '__main__':
 
     evaluator = Evaluator()
@@ -183,3 +214,7 @@ if __name__ == '__main__':
         epochs=epochs,
         callbacks=[evaluator]
     )
+
+else:
+    model.load_weights(f'{DATASET}_best_f1_0.59188.weights')
+    predict_to_file('data/pack_dev.json', 'pack_dev_pred.json')
