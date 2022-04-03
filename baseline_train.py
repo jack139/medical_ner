@@ -206,7 +206,7 @@ if __name__ == '__main__':
     evaluator = Evaluator()
     train_generator = data_generator(train_data, batch_size)
 
-    #train_model.load_weights(f'{DATASET}_best_f1_0.59188.weights')
+    #model.load_weights(f'{DATASET}_best_f1_0.82898.weights')
 
     model.fit(
         train_generator.forfit(),
@@ -216,5 +216,5 @@ if __name__ == '__main__':
     )
 
 else:
-    model.load_weights(f'{DATASET}_best_f1_0.59188.weights')
-    predict_to_file(f'data/{DATASET}_dev.json', f'{DATASET}_dev_pred.json')
+    model.load_weights(f'{DATASET}_best_f1_0.82898.weights')
+    predict_to_file(f'data/{DATASET}_dev.json', f'data/{DATASET}_dev_pred.json')
