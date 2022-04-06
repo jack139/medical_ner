@@ -5,7 +5,7 @@ import json
 import numpy as np
 from bert4keras.backend import keras, K
 from bert4keras.backend import multilabel_categorical_crossentropy
-from bert4keras.layers import GlobalPointer
+#from bert4keras.layers import GlobalPointer
 from bert4keras.layers import EfficientGlobalPointer as GlobalPointer
 from bert4keras.models import build_transformer_model
 from bert4keras.tokenizers import Tokenizer
