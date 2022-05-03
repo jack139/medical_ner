@@ -25,7 +25,8 @@ categories = set()
 
 # bert配置
 config_path = '../nlp_model/chinese_bert_L-12_H-768_A-12/bert_config.json'
-checkpoint_path = '../nlp_model/chinese_bert_L-12_H-768_A-12/bert_model.ckpt'
+#checkpoint_path = '../nlp_model/chinese_bert_L-12_H-768_A-12/bert_model.ckpt'
+checkpoint_path = '../BERT_pretrain/ckpt/bert_weights.ckpt'
 dict_path = '../nlp_model/chinese_bert_L-12_H-768_A-12/vocab.txt'
 
 def load_data(filename):
